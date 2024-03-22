@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react'
+import Display from './displayMessage';
 
 export default function App () {
   
   return (
       <React.Fragment>
-        <h1>Drink Vending Machine</h1>
-        <div className="display">
-        </div>
-        <button>Coffee</button>
-        <button>Tea</button>
-        <button>Orange Juice</button>
+        <Display/>
       </React.Fragment>
     );
   
