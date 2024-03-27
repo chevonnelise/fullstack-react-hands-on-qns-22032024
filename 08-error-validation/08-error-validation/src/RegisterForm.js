@@ -10,8 +10,8 @@ export default function RegisterForm() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const emailRegex = /^[a-zA-Z0-9._-] + @[A-Za-z.-] + \.[a-zA-Z.]{2,} $/
-  const textRegex = /^[a-zA-Z0-9]{0,15} $/
+  const emailRegex = /^[a-zA-Z0-9._-]+@[A-Za-z.-]+\.[a-zA-Z.]{2,}$/;
+  const textRegex = /^[a-zA-Z0-9]{1,15}$/;
 
   function validateUsername() {
     if (textRegex.test(userName)) {
@@ -31,9 +31,9 @@ export default function RegisterForm() {
 
   function validatePassword() {
     if (textRegex.test(password)) {
-      setUsernameError("");
+      setPasswordError("");
     } else {
-      setUsernameError("Invalid password format, cannot contain special characters like #^!(@&^*)");
+      setPasswordError("Invalid password format, cannot contain special characters like #^!(@&^*)");
     }
   }
 
