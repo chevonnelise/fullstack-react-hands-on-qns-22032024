@@ -1,65 +1,103 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 export default function RegisterForm() {
 
-    const [userName, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [userName, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const [usernameError, setUsernameError] = useState("");
-    const [emailError, setEmailError] = useState("");
-    const [passwordError, setPasswordError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-    const handleUsernameChange = (event) => {
-      setUsername(event.target.value);
+  const emailRegex = /^[a-zA-Z0-9._-] + @[A-Za-z.-] + \.[a-zA-Z.]{2,} $/
+  const textRegex = /^[a-zA-Z0-9]{0,15} $/
+
+  function validateUsername() {
+    if (textRegex.test(userName)) {
       setUsernameError("");
+    } else {
+      setUsernameError("Username must be less than 15 characters and cannot contain any special characters");
     }
+  }
 
-    const handleEmailChange = (event) => {
-      setEmail(event.target.value);
+  function validateEmail() {
+    if (emailRegex.test(email)) {
       setEmailError("");
+    } else {
+      setEmailError("Invalid email format");
     }
+  }
 
-    const handlePasswordChange = (event) => {
-      setPassword(event.target.value);
-      setPasswordError("");
+  function validatePassword() {
+    if (textRegex.test(password)) {
+      setUsernameError("");
+    } else {
+      setUsernameError("Invalid password format, cannot contain special characters like #^!(@&^*)");
     }
+  }
 
-    const handleSubmit = () => {
+  function validateAll() {
+    validateUsername();
+    validateEmail();
+    validatePassword();
+  }
 
-      if (userName === "") {
-        setUsernameError("Username required");
-      }
 
-      if (!email) {
-        setEmailError ("Email required");
-      } else if (!/^\S+@\S+\.\S+$/.test(email)) { 
-        setEmailError("Invalid email address");
-      }
+  // To prevent Cross Site Scripting: should avoid some of these special characters
+  // avoid: %, *
 
-      if (!password) {
-        setPasswordError ("Password required");
-      }
+  // const handleUsernameChange = (event) => {
+  //   setUsername(event.target.value);
+  //   setUsernameError("");
+  // }
 
-    }
-    return (
-      <React.Fragment>
-        <div>
-            <label>Username:</label>
-            <input type="text" name="username" value={userName} onChange={handleUsernameChange}/>
-            <span class="error">{usernameError}</span>
-        </div>
-        <div>
-            <label>Email:</label>
-            <input type="text" name="email" value={email} onChange={handleEmailChange}/>
-            <span class="error">{emailError}</span>
-        </div>
-        <div>
-            <label>Password:</label>
-            <input type="text" name="password" value={password} onChange={handlePasswordChange}/>
-            <span class="error">{passwordError}</span>
-        </div>
-        <button onClick={handleSubmit}>Submit</button>
-      </React.Fragment>
-    )
+  // const handleEmailChange = (event) => {
+  //   setEmail(event.target.value);
+  //   setEmailError("");
+  // }
+
+  // const handlePasswordChange = (event) => {
+  //   setPassword(event.target.value);
+  //   setPasswordError("");
+  // }
+
+  // const handleSubmit = () => {
+
+  //   if (userName === "") {
+  //     setUsernameError("Username required");
+  //   }
+
+  //   if (!email) {
+  //     setEmailError ("Email required");
+  //   } else if (!/^\S+@\S+\.\S+$/.test(email)) { 
+  //     setEmailError("Invalid email address");
+  //   }
+
+  //   if (!password) {
+  //     setPasswordError ("Password required");
+  //   }
+
+  // }
+
+  return (
+    <React.Fragment>
+      <div>
+        <label>Username:</label>
+        <input type="text" name="username" value={userName} onChange={(event) => setUsername(event.target.value)} />
+        <span class="error" style={{ color: "red" }}>{usernameError}</span>
+      </div>
+      <div>
+        <label>Email:</label>
+        <input type="text" name="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+        <span class="error" style={{ color: "red" }}>{emailError}</span>
+      </div>
+      <div>
+        <label>Password:</label>
+        <input type="text" name="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+        <span class="error" style={{ color: "red" }}>{passwordError}</span>
+      </div>
+      <button onClick={() => validateAll()}>Submit</button>
+    </React.Fragment>
+  )
 }
