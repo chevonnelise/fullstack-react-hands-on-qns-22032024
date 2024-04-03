@@ -31,8 +31,18 @@ export default function TransactionList() {
         ]
     )
 
-    return <React.Fragment>
-
+    return (
+    <React.Fragment>
+        <ul>
+            {
+                transactions ? transactions.map((transaction)=> 
+                <li style={{color:transaction.type === "debit" ? "red" : "green"}}>
+                    {transaction.name}:{transaction.amount}
+                </li>
+                ) : <p> Loading... </p> 
+            }
+        </ul>
     </React.Fragment>
+    )
   
 }
