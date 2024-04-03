@@ -20,8 +20,11 @@ export default function Movies(){
   
 
     function addMovie() {
-
-
+        let newMovie = {
+            "title":title,
+            "director":director
+        }
+        setMovies([...movies,newMovie])
     }
 
     return <React.Fragment>
