@@ -10,10 +10,11 @@ export default function Numbers(){
         let indexToRemove = Math.floor(Math.random() * allNumbers.length);
 
         // 2. clone the allNumbers array from the state
-
+        let clonedArray = [...allNumbers];
         // 3. remove the number specified at  the index in the `indexAtRemove` variable
-
+        clonedArray.splice(indexToRemove,1);
         // 4. set the clone back into the state
+        setAllNumbers(clonedArray);
     }
 
     return <React.Fragment>
